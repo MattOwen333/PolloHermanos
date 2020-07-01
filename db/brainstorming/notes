@@ -1,0 +1,58 @@
+Need Tables
+
+-table names 
+1. User Table
+- boolean value to check if admin
+- email is unique
+- values of (Name, Address)
+2. Product table id 
+- product description
+- photo url *
+- reviews
+- price
+3. order table id 
+- values($1, $2, $3)
+- quanity
+- product id 
+
+4. cart table id
+- values($1, $2, $3)
+
+5. Review Table
+- tied by product id
+
+5. Payment Method Table?
+- values
+- id?
+
+
+Administrator functionality
+
+
+API
+
+-Create User
+
+-log user in 
+
+-create product
+
+-delete product
+
+-CreateReview
+
+-is logged in 
+
+- update cart
+
+- update product
+
+  updateUser,
+
+  getAllUsers,
+
+  getUserById,
+
+  getProductId
+
+  getAllOrders(userid)
