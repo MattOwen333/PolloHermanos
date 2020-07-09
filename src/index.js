@@ -1,11 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React, { useState } from "react";
+import ReactDOM from "react-dom";
 
-import {
-  App
-} from './components';
+import axios from "axios";
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
+import { CartList, SearchBar, SearchResults } from "./components";
+import { fetchCards } from "./api";
+
+const App = () => {
+  const [results, setResults] = useState([]);
+
+  return (
+    <div id="app">
+      <SearchBar setResults={setResults} />
+      <SearchResults results={results} />
+      <CartList />
+    </div>
+  );
+};
+
+ReactDOM.render(<App />, document.getElementById("root"));
