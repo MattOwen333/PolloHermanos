@@ -1,21 +1,30 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from 'react';
 
-import axios from "axios";
+import ReactDOM from 'react-dom';
 
-import { CartList, SearchBar, SearchResults } from "./components";
-import { fetchCards } from "./api";
+import axios from 'axios';
 
 const App = () => {
-  const [results, setResults] = useState([]);
+    return (
+        <div id="app">
+            <div id="search">
+                <h3>Look up cards here...</h3>
+                <form>
+                    <input type="text" placeholder="card search" />
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div id="results">
+                <h3>Here's what we found:</h3>
+            </div>
+            <div id="deck">
+                <h3>Your deck so far:</h3>
+            </div>
+        </div>
+    );
+}
 
-  return (
-    <div id="app">
-      <SearchBar setResults={setResults} />
-      <SearchResults results={results} />
-      <CartList />
-    </div>
-  );
-};
-
-ReactDOM.render(<App />, document.getElementById("root"));
+ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+);
