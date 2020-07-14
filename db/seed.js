@@ -61,8 +61,8 @@
 //       CREATE TABLE cart (
 //         id SERIAL PRIMARY KEY,
 //         "userId" INTEGER REFERENCES users(id),
-//         "productId",
-//         quantity,
+//         "productId" INTEGER REFERENCES products(id),
+//         quantity INTEGER,
 //         status varchar(255)
 //       );
 //       CREATE TABLE order (

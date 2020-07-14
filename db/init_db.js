@@ -52,24 +52,24 @@ async function populateInitialData() {
     /*--------------------------USERS----------------------------*/
     await createUser({
       username: "maximilian",
-      password: "pass123",
+      password: "max123",
       name: "Max",
-      email: "max@test.com",
+      email: "max@gmail.com",
       location: "Bronx, NY",
     });
     await createUser({
       username: "therock",
-      password: "pass123",
+      password: "ifyousmell",
       name: "Dwayne Johnson",
       email: "rock@wwe.com",
       location: "Miami",
     });
     await createUser({
       username: "tomthemailman",
-      password: "pass123",
+      password: "tom123",
       name: "Thomas",
       email: "tom@gmail.com",
-      location: "Jax",
+      location: "Jacksonville",
     });
     const users = await getAllUsers();
     console.log("---USERS:", users);
