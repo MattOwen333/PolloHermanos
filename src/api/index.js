@@ -1,49 +1,6 @@
-// const crawWurm = {
-//   artist: "Richard Sardinha",
-//   cmc: 6,
-//   colorIdentity: ["G"],
-//   colors: ["Green"],
-//   flavor:
-//     "The most terrifying thing about the craw wurm is probably the horrible crashing sound it makes as it speeds through the forest. This noise is so loud it echoes through the trees and seems to come from all directions at once.",
-//   id: "ada04e68-5bec-59bf-8474-7e87e82da1e8",
-//   imageUrl:
-//     "http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid=130527&type=card",
-//   layout: "normal",
-//   manaCost: "{4}{G}{G}",
-//   multiverseid: 130527,
-//   name: "Craw Wurm",
-//   number: "257",
-//   originalType: "Creature - Wurm",
-//   power: "6",
-//   printings: [
-//     "10E",
-//     "2ED",
-//     "3ED",
-//     "4BB",
-//     "4ED",
-//     "5ED",
-//     "8ED",
-//     "9ED",
-//     "CED",
-//     "CEI",
-//     "FBB",
-//     "LEA",
-//     "LEB",
-//     "M10",
-//     "SUM",
-//   ],
-//   rarity: "Common",
-//   rulings: [],
-//   set: "10E",
-//   setName: "Tenth Edition",
-//   subtypes: ["Wurm"],
-//   supertypes: [],
-//   toughness: "4",
-//   type: "Creature — Wurm",
-//   types: ["Creature"],
-// };
+import axios from "axios";
 
-const Cleaver = {
+const cleaver = {
   title: "Chop Cleaver",
   description: "Authentic PolloHermano's Chop Cleaver",
   photo: "https://i.ebayimg.com/images/g/DQ0AAOSwPEFbrh0R/s-l1600.jpg",
@@ -99,6 +56,16 @@ const Cleaver = {
 //     }
 //   }
 
-export async function fetchCards(terms) {
-  return [Cleaver];
+// export async function fetchProducts({ name, text }) {
+//   try {
+//     const { data } = await axios.get("/api/products");
+
+//     return data.products || [];
+//   } catch (error) {
+//     throw error;
+//   }
+// }
+
+export async function fetchProducts(terms) {
+  return [cleaver];
 }
