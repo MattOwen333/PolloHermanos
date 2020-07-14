@@ -1,45 +1,22 @@
-const { Client } = require('pg');
+// Connect to DB
+const { Client } = require("pg");
+const DB_NAME = "localhost:5432/shopperdb";
+const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
+const client = new Client(DB_URL);
+// database methods
 
-const client = new Client('postgres://localhost:5432/gp-dev');
-
-async function createUser({ 
-  username, 
-  password,
-  name,
-  location
-}) {
+async function createUser({ username, password, name, email, location }) {
   try {
-    const { rows: [ user ] } = await client.query(`
-      INSERT INTO users(username, password, name, location) 
-      VALUES($1, $2, $3, $4) 
-      ON CONFLICT (username) DO NOTHING 
+    const { rows } = await client.query(
+      `
+      INSERT INTO users(username, password, name, email, location)
+      VALUES($1, $2, $3, $4, $5)
       RETURNING *;
-    `, [username, password, name, location]);
+    `,
+      [username, password, name, email, location]
+    );
 
-    return user;
-  } catch (error) {
-    throw error;
-  }
-}
-
-async function updateUser(id, fields = {}) {
-  const setString = Object.keys(fields).map(
-    (key, index) => `"${ key }"=$${ index + 1 }`
-  ).join(', ');
-
-  if (setString.length === 0) {
-    return;
-  }
-
-  try {
-    const { rows: [ user ] } = await client.query(`
-      UPDATE users
-      SET ${ setString }
-      WHERE id=${ id }
-      RETURNING *;
-    `, Object.values(fields));
-
-    return user;
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -48,8 +25,7 @@ async function updateUser(id, fields = {}) {
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
-      SELECT id, username, name, location, active 
-      FROM users;
+      SELECT * FROM users;
     `);
 
     return rows;
@@ -58,19 +34,18 @@ async function getAllUsers() {
   }
 }
 
-async function getUserById(userId) {
+async function getUserByUsername(username) {
   try {
-    const { rows: [ user ] } = await client.query(`
-      SELECT id, username, name, location, active
+    const {
+      rows: [user],
+    } = await client.query(
+      `
+      SELECT *
       FROM users
-      WHERE id=${ userId }
-    `);
-
-    if (!user) {
-      return null
-    }
-
-    user.posts = await getPostsByUser(userId);
+      WHERE username=$1
+    `,
+      [username]
+    );
 
     return user;
   } catch (error) {
@@ -78,43 +53,37 @@ async function getUserById(userId) {
   }
 }
 
-async function createProduct({
-  title,
-  description,
-  photo,
-  price
-}) {
+async function getUserById(userId) {
   try {
-    const { rows: [ product ] } = await client.query(`
-      INSERT INTO posts("authorId", description, photo, price) 
-      VALUES($1, $2, $3, $4)
-      RETURNING *;
-    `, [title, description, photo, price]);
+    const {
+      rows: [user],
+    } = await client.query(`
+      SELECT *
+      FROM users
+      WHERE id=${userId}
+    `);
 
-    return product;
+    if (!user) {
+      return null;
+    }
+    return user;
   } catch (error) {
     throw error;
   }
 }
 
-async function updateProduct(id, fields = {}) {
-  const setString = Object.keys(fields).map(
-    (key, index) => `"${ key }"=$${ index + 1 }`
-  ).join(', ');
-
-  if (setString.length === 0) {
-    return;
-  }
-
+async function createProduct({ title, description, photo, price }) {
   try {
-    const { rows: [ product ] } = await client.query(`
-      UPDATE products
-      SET ${ setString }
-      WHERE id=${ id }
+    const { rows } = await client.query(
+      `
+      INSERT INTO products(title, description, photo, price)
+      VALUES($1, $2, $3, $4)
       RETURNING *;
-    `, Object.values(fields));
+    `,
+      [title, description, photo, price]
+    );
 
-    return product;
+    return rows;
   } catch (error) {
     throw error;
   }
@@ -123,8 +92,7 @@ async function updateProduct(id, fields = {}) {
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
-      SELECT *
-      FROM products;
+      SELECT * FROM products;
     `);
 
     return rows;
@@ -133,28 +101,83 @@ async function getAllProducts() {
   }
 }
 
-// async function getPostsByUser(userId) {
-//   try {
-//     const { rows } = await client.query(`
-//       SELECT * 
-//       FROM posts
-//       WHERE "authorId"=${ userId };
-//     `);
+async function getProductById(productId) {
+  try {
+    const {
+      rows: [product],
+    } = await client.query(
+      `
+      SELECT *
+      FROM products
+      WHERE id=${productId};
+    `
+    );
 
-//     return rows;
-//   } catch (error) {
-//     throw error;
-//   }
-// }
+    if (!product) {
+      throw {
+        name: "NotFoundError",
+        message: "product id not found",
+      };
+    }
 
-module.exports = {  
+    return product;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function updateProduct(productId, fields = {}) {
+  const setString = Object.keys(fields)
+    .map((key, index) => `"${key}"=$${index + 1}`)
+    .join(", ");
+
+  try {
+    if (setString.length > 0) {
+      await client.query(
+        `
+        UPDATE products
+        SET ${setString}
+        WHERE id=${productId}
+        RETURNING *;
+      `,
+        Object.values(fields)
+      );
+    }
+    return await getProductById(productId);
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function deleteProduct(productId) {
+  await client.query(
+    `
+      DELETE FROM products
+      WHERE id=${productId}
+      RETURNING *`
+  );
+}
+
+async function deleteUser(userId) {
+  await client.query(
+    `
+      DELETE FROM users
+      WHERE id=${userId}
+      RETURNING *`
+  );
+}
+
+// export
+module.exports = {
   client,
   createUser,
-  updateUser,
-  getAllUsers,
-  getUserById,
   createProduct,
+  getAllUsers,
+  getAllProducts,
+  getProductById,
+  getUserByUsername,
+  getUserById,
   updateProduct,
-  getAllProducts
-  // getPostsByUser
-}
+  deleteProduct,
+  deleteUser,
+};

@@ -8,7 +8,13 @@ usersRouter.use((req, res, next) => {
   next();
 });
 
-const { getAllUsers, createUser, getUserByUsername } = require("../db");
+const {
+  getAllUsers,
+  createUser,
+  getUserByUsername,
+  deleteUser,
+  getUserById,
+} = require("../db");
 
 usersRouter.get("/", async (req, res) => {
   const users = await getAllUsers();
@@ -21,7 +27,6 @@ usersRouter.get("/", async (req, res) => {
 usersRouter.post("/login", async (req, res, next) => {
   const { username, password } = req.body;
 
-  // request must have both
   if (!username || !password) {
     next({
       name: "MissingCredentialsError",
@@ -96,4 +101,17 @@ usersRouter.post("/register", async (req, res, next) => {
     next({ name, message });
   }
 });
+
+// usersRouter.delete("/:userId", async (req, res, next) => {
+//   try {
+//     const user = await getUserById(req.params.userId);
+
+//     const deleted = await deleteUser(user.id);
+
+//     res.send({ user: deleted });
+//     next();
+//   } catch ({ name, message }) {
+//     next({ name, message });
+//   }
+// });
 module.exports = usersRouter;

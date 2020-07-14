@@ -6,6 +6,7 @@ const {
   getAllProducts,
   getProductById,
   updateProduct,
+  deleteProduct,
 } = require("../db");
 
 productsRouter.get("/", async (req, res) => {
@@ -26,6 +27,7 @@ productsRouter.post("/", async (req, res, next) => {
 
     if (product) {
       res.send({ product });
+      return;
     }
     next({
       name: "Error creating product",
@@ -75,18 +77,15 @@ productsRouter.patch("/:productId", async (req, res, next) => {
 
 productsRouter.delete("/:productId", async (req, res, next) => {
   try {
-    const product = await getProductById(req.params.postId);
+    const product = await getProductById(req.params.productId);
 
-    const deleted = await deleteProduct();
+    const deleted = await deleteProduct(product.id);
 
     res.send({ product: deleted });
-    // if there was a post, throw UnauthorizedUserError, otherwise throw PostNotFoundError
     next();
-  } catch (error) {
-    console.error(error);
+  } catch ({ name, message }) {
+    next({ name, message });
   }
 });
 
 module.exports = productsRouter;
-// curl http://localhost:5000/api/products/1 -X PATCH -H 'Content-Type: application/json' -d '{title, description, photo, price}'
-// curl http://localhost:5000/api/products/ -X POST -H 'Content-Type: application/json' -d '{"title":"Remote", "description":"TV Remote", "photo":"img.com", "price":"12"}'
