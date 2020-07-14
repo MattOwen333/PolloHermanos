@@ -1,4 +1,4 @@
-const {  
+const {
   client,
   createUser,
   updateUser,
@@ -7,8 +7,8 @@ const {
   createPost,
   updatePost,
   getAllPosts,
-  getPostsByUser
-} = require('./index');
+  getPostsByUser,
+} = require("./index");
 
 async function dropTables() {
   try {
@@ -28,7 +28,7 @@ async function dropTables() {
     throw error;
   }
 }
-  
+
 async function createTables() {
   try {
     console.log("Starting to build tables...");
@@ -80,28 +80,27 @@ async function createTables() {
   }
 }
 
-
 async function createInitialUsers() {
   try {
     console.log("Starting to create users...");
 
-    await createUser({ 
-      username: 'albert', 
-      password: 'bertie99',
-      name: 'Al Bert',
-      location: 'Sidney, Australia' 
+    await createUser({
+      username: "albert",
+      password: "bertie99",
+      name: "Al Bert",
+      location: "Sidney, Australia",
     });
-    await createUser({ 
-      username: 'sandra', 
-      password: '2sandy4me',
-      name: 'Just Sandra',
-      location: 'Ain\'t tellin\''
+    await createUser({
+      username: "sandra",
+      password: "2sandy4me",
+      name: "Just Sandra",
+      location: "Ain't tellin'",
     });
-    await createUser({ 
-      username: 'glamgal',
-      password: 'soglam',
-      name: 'Joshua',
-      location: 'Upper East Side'
+    await createUser({
+      username: "glamgal",
+      password: "soglam",
+      name: "Joshua",
+      location: "Upper East Side",
     });
 
     console.log("Finished creating users!");
@@ -113,19 +112,17 @@ async function createInitialUsers() {
 
 async function createInitialProducts() {
   try {
-
     console.log("Starting to create products...");
     await createProduct({
-      
+      title: "Chop Cleaver",
+      description: "Authentic PolloHermano's Chop Cleaver",
+      photo: "https://i.ebayimg.com/images/g/DQ0AAOSwPEFbrh0R/s-l1600.jpg",
+      price: "$22.99",
     });
 
-    await createProduct({
-      
-    });
+    // await createProduct({});
 
-    await createProduct({
-      
-    });
+    // await createProduct({});
     console.log("Finished creating products!");
   } catch (error) {
     console.log("Error creating products!");
@@ -142,7 +139,7 @@ async function rebuildDB() {
     await createInitialUsers();
     await createInitialProducts();
   } catch (error) {
-    console.log("Error during rebuildDB")
+    console.log("Error during rebuildDB");
     throw error;
   }
 }
@@ -183,7 +180,6 @@ async function rebuildDB() {
 //     throw error;
 //   }
 // }
-
 
 rebuildDB()
   //.then(testDB)
