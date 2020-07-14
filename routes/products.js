@@ -11,7 +11,7 @@ const {
 
 productsRouter.get("/", async (req, res) => {
   const products = await getAllProducts();
-
+  //try catch
   res.send({
     products,
   });
