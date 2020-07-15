@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const register = ({ setResults }) => {
+const Register = ({ setResults }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,7 +30,8 @@ const register = ({ setResults }) => {
       location,
     });
 
-    setResults(register);
+    // if not logged in show register
+    // could call a function for slideup
   }
 
   return (
@@ -67,4 +68,4 @@ const register = ({ setResults }) => {
   );
 };
 
-export default register;
+export default Register;
