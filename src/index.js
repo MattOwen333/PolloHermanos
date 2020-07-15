@@ -1,25 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import ReactDOM from 'react-dom';
 
 import axios from 'axios';
 
+import {
+    CartList,
+    SearchBar,
+    SearchResults
+} from './components'
+
+import {
+    fetchCards,
+} from './api';
+
+import "./index.css"
+
 const App = () => {
+    const [results, setResults] = useState([]);
+    const [cart, setCart] = useState([]);
+
+    const addProductToCart = ({ id, name }) => {
+        const nextCart = [...cart];
+        const index = nextCart.findIndex(product => product.id === id);
+      
+        if (index > -1) {
+          nextCart[index].count += 1;
+        } else {
+          nextCart.push({
+            id,
+            name,
+            count: 1
+          });
+        }
+      
+        setCart(nextCart);
+      }
+
+    const removeProductFromCart = ({ id }) => {
+        const nextCart = [...cart];
+        const index = nextCart.findIndex(product => product.id === id);
+      
+        if (index === -1) {
+          return;
+        }
+      
+        if (nextCart[index].count === 1) {
+          nextCart.splice(index, 1);
+        } else {
+          nextCart[index].count -= 1;
+        }
+        setCart(nextCart);
+      }
+ 
     return (
         <div id="app">
-            <div id="search">
-                <h3>Look up cards here...</h3>
-                <form>
-                    <input type="text" placeholder="card search" />
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-            <div id="results">
-                <h3>Here's what we found:</h3>
-            </div>
-            <div id="deck">
-                <h3>Your deck so far:</h3>
-            </div>
+            <SearchBar setResults={ setResults } />
+            <SearchResults results={ results }
+                           addProductToCart={ addProductToCart }
+                           removeProductFromCart={ removeProductFromCart } />
+            <CartList cart={ cart }
+                      addProductToCart={ addProductToCart }
+                      removeProductFromCart={ removeProductFromCart } />
         </div>
     );
 }

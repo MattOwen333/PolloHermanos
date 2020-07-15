@@ -4,6 +4,7 @@
   "description": "So, you want to build a full-stack JavaScript application with:",
   "main": "index.js",
   "scripts": {
+    "start:dev": "react-scripts start",
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
@@ -19,7 +20,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "morgan": "^1.10.0",
-    "pg": "^8.2.1",
+    "pg": "^8.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",

@@ -1,20 +1,28 @@
-import React from "react";
+import React from 'react';
 
-import "./SearchResults.css";
+import Product from './Product';
+import './SearchResults.css';
 
-import Card from "./Product";
-
-const SearchResults = ({ results }) => {
+const SearchResults = ({ 
+  results,
+  addProductToCart,
+  removeProductFromCart
+}) => {
   return (
     <div id="results">
-      <h3>Here's what we found ({results.length} results):</h3>
-      <div className="CardList">
-        {results.map((result) => (
-          <Card key={result.id} {...result} />
-        ))}
+      <div className="ProductList">
+        {
+          results.map(result => (
+            <Product 
+              key={ result.id } 
+              addProductToCart ={ addProductToCart }
+              removeProductFromCart ={ removeProductFromCart }
+              {...result} />
+          ))
+        }
       </div>
     </div>
   );
-};
+}
 
 export default SearchResults;
