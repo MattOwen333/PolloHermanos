@@ -5,7 +5,6 @@ const { JWT_SECRET } = process.env;
 const express = require("express");
 const apiRouter = express.Router();
 
-// set `req.user` if possible
 apiRouter.use(async (req, res, next) => {
   const prefix = "Bearer ";
   const auth = req.header("Authorization");
@@ -15,10 +14,11 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
+      console.log("ID:", id);
+      console.log("TOKEN:", token);
+
       if (id) {
         req.user = await getUserById(id);
-        console.log("ID:", id);
-        console.log("TOKEN:", token);
         next();
       }
     } catch ({ name, message }) {
@@ -35,8 +35,8 @@ apiRouter.use(async (req, res, next) => {
 apiRouter.use((req, res, next) => {
   if (req.user) {
     console.log("User is set:", req.user);
+    // console.log("CURRENT USER:", currentUser);
   }
-
   next();
 });
 
@@ -45,6 +45,9 @@ apiRouter.use("/users", usersRouter);
 
 const productsRouter = require("./products");
 apiRouter.use("/products", productsRouter);
+
+const cartRouter = require("./cart");
+apiRouter.use("/cart", cartRouter);
 
 apiRouter.use((error, req, res, next) => {
   res.send(error);

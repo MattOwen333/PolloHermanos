@@ -4,8 +4,11 @@ const {
   createProduct,
   getAllUsers,
   getAllProducts,
+  getCarts,
+  getUserCart,
   updateProduct,
   deleteProduct,
+  addProductToCart,
   // other db methods
 } = require("./index");
 
@@ -14,8 +17,7 @@ async function buildTables() {
     client.connect();
 
     await client.query(
-      `
-        DROP TABLE IF EXISTS reviews;
+      ` DROP TABLE IF EXISTS cart;
         DROP TABLE IF EXISTS products;
         DROP TABLE IF EXISTS users;
       `
@@ -33,10 +35,16 @@ async function buildTables() {
             );
             CREATE TABLE products (
               id SERIAL PRIMARY KEY,
-              title varchar(255) NOT NULL,
+              title varchar(255) UNIQUE NOT NULL,
               description TEXT NOT NULL,
               photo TEXT,
               price MONEY NOT NULL
+            );
+            CREATE TABLE cart (
+              id SERIAL PRIMARY KEY,
+              "userId" INTEGER REFERENCES users(id),
+              "productId" INTEGER REFERENCES products(id),
+              quantity INTEGER
             );
           `);
 
@@ -59,7 +67,7 @@ async function populateInitialData() {
     });
     await createUser({
       username: "therock",
-      password: "ifyousmell",
+      password: "rocky",
       name: "Dwayne Johnson",
       email: "rock@wwe.com",
       location: "Miami",
@@ -71,6 +79,8 @@ async function populateInitialData() {
       email: "tom@gmail.com",
       location: "Jacksonville",
     });
+
+    // async function currentUser() {}
     const users = await getAllUsers();
     console.log("---USERS:", users);
 
@@ -96,9 +106,29 @@ async function populateInitialData() {
     const updatedProducts = await updateProduct(products[1].id, {
       price: "110",
     });
-    console.log("--UPDATED PRODUCTS:", updatedProducts);
+    console.log("---UPDATED PRODUCTS:", updatedProducts);
 
-    /*--------------------------PRODUCTS----------------------------*/
+    /*--------------------------CART----------------------------*/
+    await addProductToCart({
+      userId: 1,
+      productId: 1,
+      quantity: 2,
+    });
+
+    await addProductToCart({
+      userId: 3,
+      productId: 1,
+      quantity: 1,
+    });
+
+    let maxCart = await getUserCart("maximilian");
+    console.log("---MAX CART: ", maxCart);
+    let tomCart = await getUserCart("tomthemailman");
+    console.log("---TOM CART: ", tomCart);
+
+    const carts = await getCarts();
+    console.log("---CARTS:", carts);
+    /*------------------------------------------------d-----------*/
   } catch (error) {
     throw error;
   }

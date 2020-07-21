@@ -149,6 +149,50 @@ async function updateProduct(productId, fields = {}) {
   }
 }
 
+async function addProductToCart({ userId, productId, quantity }) {
+  try {
+    const { rows } = await client.query(
+      `
+                INSERT INTO cart("userId", "productId", quantity) 
+                VALUES($1, $2, $3) 
+                RETURNING *;
+              `,
+      [userId, productId, quantity]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getUserCart(username) {
+  try {
+    const user = await getUserByUsername(username);
+
+    const { rows: cart } = await client.query(`
+          SELECT *
+          FROM cart
+          WHERE "userId"=${user.id};
+      `);
+    return cart;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getCarts() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM cart;
+    `);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function deleteProduct(productId) {
   await client.query(
     `
@@ -177,7 +221,10 @@ module.exports = {
   getProductById,
   getUserByUsername,
   getUserById,
+  getCarts,
   updateProduct,
   deleteProduct,
   deleteUser,
+  addProductToCart,
+  getUserCart,
 };
