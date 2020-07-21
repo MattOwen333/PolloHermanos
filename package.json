@@ -4,11 +4,10 @@
   "description": "So, you want to build a full-stack JavaScript application with:",
   "main": "index.js",
   "scripts": {
-    "start:dev": "react-scripts start",
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
-    "start:devs": "nodemon index.js",
+    "start:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
     "start": "node index.js"
   },
