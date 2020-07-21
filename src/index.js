@@ -11,7 +11,7 @@ import {
 } from './components'
 
 import {
-    fetchCards,
+    fetchProducts,
 } from './api';
 
 import "./index.css"
@@ -20,7 +20,7 @@ const App = () => {
     const [results, setResults] = useState([]);
     const [cart, setCart] = useState([]);
 
-    const addProductToCart = ({ id, name }) => {
+    const addProductToCart = ({ id, name, price }) => {
         const nextCart = [...cart];
         const index = nextCart.findIndex(product => product.id === id);
       
@@ -30,6 +30,7 @@ const App = () => {
           nextCart.push({
             id,
             name,
+            price,
             count: 1
           });
         }
@@ -52,19 +53,21 @@ const App = () => {
         }
         setCart(nextCart);
       }
- 
+ console.log(cart)
     return (
         <div id="app">
             <SearchBar setResults={ setResults } />
             <SearchResults results={ results }
                            addProductToCart={ addProductToCart }
                            removeProductFromCart={ removeProductFromCart } />
-            <CartList cart={ cart }
-                      addProductToCart={ addProductToCart }
-                      removeProductFromCart={ removeProductFromCart } />
+            { cart.length > 0 && <CartList cart={ cart }
+                            addProductToCart={ addProductToCart }
+                            removeProductFromCart={ removeProductFromCart } />}
         </div>
     );
 }
+
+
 
 ReactDOM.render(
     <App />,

@@ -2,4 +2,5 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minman(480px, 1 fr));
     grid-gap: 15px;
+    align-items: center;
 }
