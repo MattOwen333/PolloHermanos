@@ -1,8 +1,8 @@
 // Connect to DB
-const { Client } = require("pg");
-const DB_NAME = "localhost:5432/shopperdb";
-const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
-const client = new Client(DB_URL);
+// const { Client } = require("pg");
+// // const DB_NAME = "localhost:5432/shopperdb";
+// const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
+// const client = new Client(DB_URL);
 // database methods
 
 async function createUser({ username, password, name, email, location }) {
@@ -169,7 +169,7 @@ async function deleteUser(userId) {
 
 // export
 module.exports = {
-  client,
+  // client,
   createUser,
   createProduct,
   getAllUsers,
