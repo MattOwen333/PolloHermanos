@@ -4,11 +4,10 @@
   "description": "So, you want to build a full-stack JavaScript application with:",
   "main": "index.js",
   "scripts": {
-    "start:dev": "react-scripts start",
+    "start:dev": "nodemon index.js",
     "postinstall": "npm run client:build",
     "client:dev": "react-scripts start",
     "client:build": "react-scripts build",
-    "start:dev": "nodemon index.js",
     "db:build": "node ./db/init_db",
     "start": "node index.js"
   },
@@ -23,6 +22,7 @@
     "pg": "^8.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-modal": "^3.11.2",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1"
   },

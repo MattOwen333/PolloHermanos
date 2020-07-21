@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
+// const { createUser } = require("../db");
 
-const Register = ({ setResults }) => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [location, setLocation] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -13,30 +18,44 @@ const Register = ({ setResults }) => {
   };
 
   const handleNameChange = (event) => {
-    setPassword(event.target.value);
+    setName(event.target.value);
+  };
+
+  const handleEmailChnage = (event) => {
+    setEmail(event.target.value);
   };
 
   const handleLocationChange = (event) => {
-    setPassword(event.target.value);
+    setLocation(event.target.value);
   };
 
+  // async function handleSubmit(event) {
+  //   event.preventDefault();
+
+  //   // const register = await createUser({
+  //   //   username,
+  //   //   password,
+  //   //   name,
+  //   //   location,
+  //   });
+  // }
+
   async function handleSubmit(event) {
+    const url = `/Register`;
     event.preventDefault();
 
-    const register = await createUser({
-      username,
-      password,
-      name,
-      location,
-    });
-
-    // if not logged in show register
-    // could call a function for slideup
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      return data;
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
     <div id="Register">
-      <h3>Look up cards here...</h3>
+      <h3>Register</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -58,14 +77,28 @@ const Register = ({ setResults }) => {
         />
         <input
           type="text"
+          placeholder="email"
+          value={email}
+          onChange={handleEmailChnage}
+        />
+        <input
+          type="text"
           placeholder="location"
           value={location}
           onChange={handleLocationChange}
         />
-        <button type="submit">Search</button>
+        <button onClick={}>Register, {currentUser}</button>
       </form>
     </div>
   );
 };
+
+//on submit need to close modal
+{
+  /* <button onClick={() => setModalIsOpen(true)}>Register</button>
+          <Modal isOpen={modalIsOpen}>
+            <Register></Register>
+          </Modal> */
+}
 
 export default Register;
