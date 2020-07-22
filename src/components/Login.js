@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import Modal from "react-modal";
 
-const Login = () => {
+const Login = ({ toggleModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [modalIsOpen, SetModalIsOpen] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -47,10 +49,14 @@ const Login = () => {
           onChange={handlePasswordChange}
         />
 
-        <button onClick={handleUserLogin}>LOG OUT, {currentUser}</button>
+        <button onClick={() => setModalIsOpen(false)}>
+          Login, {currentUser}
+        </button>
       </form>
     </div>
   );
 };
+
+// need to figure out how to display current user
 
 export default Login;
