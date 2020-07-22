@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+import { storeCurrentUser, setCurrentUser } from "../Auth";
 
-const Login = ({ toggleModal }) => {
+const Login = ({ toggleModal, setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [modalIsOpen, SetModalIsOpen] = useState(false);
@@ -14,7 +15,7 @@ const Login = ({ toggleModal }) => {
     setPassword(event.target.value);
   };
 
-  const handleUserLogin = (event) => {
+  const handleUserLogin = (token) => {
     storeCurrentUser(token);
     setCurrentUser(token);
   };
@@ -49,9 +50,7 @@ const Login = ({ toggleModal }) => {
           onChange={handlePasswordChange}
         />
 
-        <button onClick={() => setModalIsOpen(false)}>
-          Login, {currentUser}
-        </button>
+        <button onClick={() => SetModalIsOpen(false)}>Login</button>
       </form>
     </div>
   );

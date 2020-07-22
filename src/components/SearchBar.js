@@ -6,7 +6,7 @@ const SearchBar = ({ setResults }) => {
   const [text, setText] = useState("");
 
   const handleNameChange = (event) => {
-    setText(event.target.value);
+    setName(event.target.value);
   };
 
   async function handleSubmit(event) {
