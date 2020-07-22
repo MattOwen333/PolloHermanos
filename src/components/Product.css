@@ -1,7 +1,7 @@
 .Product {
     display: grid;
-    grid-template-columns: 1fr 200px;
-    grid-template-rows: 1fr 64px;
+    /* grid-template-columns: 1fr 200px;
+    grid-template-rows: 1fr 64px; */
   
     grid-gap: 24px;
   
@@ -10,7 +10,7 @@
     padding: 12px;
   
     box-shadow: 0 2px 6px -3px black;
-    align-items: center;
+    align-items: flex-start;
   }
   
   .Product .info {
@@ -31,7 +31,7 @@
     font-size: 1.3em;
   }
   
-  .Product .info .flavor {
+  .Product .info .description {
     font-style: italic;
   }
   
@@ -41,7 +41,7 @@
   
     width: 200px;
   
-    justify-self: flex-end;
+    justify-self: flex-start;
   }
   
   .Product .actions {

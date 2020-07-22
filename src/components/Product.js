@@ -5,10 +5,8 @@ import "./Product.css"
 const Product = ({
     id,
     name, 
-    type,
-    manaCost,
-    text,
-    flavor,
+    price,
+    description,
     imageUrl,
     addProductToCart,
     removeProductFromCart
@@ -17,21 +15,15 @@ const Product = ({
         <div className="Product">
         <div className="info">
           <p className="header">
-            { name } - { manaCost }
+            { name } - ${ price }
           </p>
-          <p className="type">
-            { type }
-          </p>
-          <p className="text">
-            { text }
-          </p>
-          <p className="flavor">
-            { flavor }
+          <p className="description">
+            { description }
           </p>
         </div>
         <img className="preview" src={ imageUrl } />
         <div className="actions">
-          <button onClick={() => {addProductToCart({id,name,});}}>
+          <button onClick={() => {addProductToCart({id,name,price});}}>
           Add to Cart
           </button>
           <button onClick={() => {removeProductFromCart({id});}}>
