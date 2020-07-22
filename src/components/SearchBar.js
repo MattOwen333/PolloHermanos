@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
-import { fetchProducts } from '../api';
+import React, { useState } from "react";
+import { fetchProducts } from "../api";
 
 const SearchBar = ({ setResults }) => {
+  const [name, setName] = useState("");
+  const [text, setText] = useState("");
+
 
     const [name, setName] = useState('');
 
-    const handleNameChange = event => {
-        setName( event.target.value );
-    }
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+  };
+
 
 
     async function handleSubmit(event) {
@@ -23,8 +28,9 @@ const SearchBar = ({ setResults }) => {
             <input type="text" placeholder="" value={name} onChange={ handleNameChange }/>
             <button type="submit">Search</button>
         </form>
+
     </div>
-    );
-}
+  );
+};
 
 export default SearchBar;

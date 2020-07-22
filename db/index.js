@@ -1,8 +1,8 @@
 // Connect to DB
-const { Client } = require("pg");
-const DB_NAME = "localhost:5432/shopperdb";
-const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
-const client = new Client(DB_URL);
+// const { Client } = require("pg");
+// // const DB_NAME = "localhost:5432/shopperdb";
+// const DB_URL = process.env.DATABASE_URL || `postgres://${DB_NAME}`;
+// const client = new Client(DB_URL);
 // database methods
 
 async function createUser({ username, password, name, email, location }) {
@@ -149,6 +149,50 @@ async function updateProduct(productId, fields = {}) {
   }
 }
 
+async function addProductToCart({ userId, productId, quantity }) {
+  try {
+    const { rows } = await client.query(
+      `
+                INSERT INTO cart("userId", "productId", quantity) 
+                VALUES($1, $2, $3) 
+                RETURNING *;
+              `,
+      [userId, productId, quantity]
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getUserCart(username) {
+  try {
+    const user = await getUserByUsername(username);
+
+    const { rows: cart } = await client.query(`
+          SELECT *
+          FROM cart
+          WHERE "userId"=${user.id};
+      `);
+    return cart;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getCarts() {
+  try {
+    const { rows } = await client.query(`
+      SELECT * FROM cart;
+    `);
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function deleteProduct(productId) {
   await client.query(
     `
@@ -169,7 +213,7 @@ async function deleteUser(userId) {
 
 // export
 module.exports = {
-  client,
+  // client,
   createUser,
   createProduct,
   getAllUsers,
@@ -177,7 +221,10 @@ module.exports = {
   getProductById,
   getUserByUsername,
   getUserById,
+  getCarts,
   updateProduct,
   deleteProduct,
   deleteUser,
+  addProductToCart,
+  getUserCart,
 };

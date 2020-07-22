@@ -1,24 +1,51 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom";
 
-import axios from 'axios';
+import axios from "axios";
 
-import {
-    CartList,
-    SearchBar,
-    SearchResults
-} from './components'
+import Modal from "react-modal";
+
 
 import {
     fetchProducts,
 } from './api';
 
-import "./index.css"
+
+import { fetchCards } from "./api";
+
+import "./index.css";
 
 const App = () => {
-    const [results, setResults] = useState([]);
-    const [cart, setCart] = useState([]);
+  const [results, setResults] = useState([]);
+  const [cart, setCart] = useState([]);
+  const [userToken, setUserToken] = useState([]);
+
+  const addProductToCart = ({ id, name }) => {
+    const nextCart = [...cart];
+    const index = nextCart.findIndex((product) => product.id === id);
+
+    if (index > -1) {
+      nextCart[index].count += 1;
+    } else {
+      nextCart.push({
+        id,
+        name,
+        count: 1,
+      });
+    }
+
+    setCart(nextCart);
+  };
+
+  const removeProductFromCart = ({ id }) => {
+    const nextCart = [...cart];
+    const index = nextCart.findIndex((product) => product.id === id);
+
+    if (index === -1) {
+      return;
+    }
+
 
     const addProductToCart = ({ id, name, price }) => {
         const nextCart = [...cart];
