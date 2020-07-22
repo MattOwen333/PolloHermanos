@@ -116,8 +116,8 @@ async function populateInitialData() {
     });
 
     await addProductToCart({
-      userId: 3,
-      productId: 1,
+      userId: 1,
+      productId: 2,
       quantity: 1,
     });
 
