@@ -48,7 +48,14 @@ usersRouter.post("/login", async (req, res, next) => {
           expiresIn: "1w",
         }
       );
-      res.send({ message: "you're logged in!", token });
+      let currentUser = {
+        username: `${username}`,
+        token: `${token}`,
+      };
+      // localStorage.setItem("currentUser", currentUser);
+      // console.log("CURRENT USER:", currentUser);
+      console.log(user.id);
+      res.send({ message: `Hello, ${username}`, token });
     } else {
       next({
         name: "IncorrectCredentialsError",
@@ -92,9 +99,8 @@ usersRouter.post("/register", async (req, res, next) => {
         expiresIn: "1w",
       }
     );
-
     res.send({
-      message: "thank you for signing up",
+      message: `Thanks for signing up ${username}`,
       token,
     });
   } catch ({ name, message }) {
