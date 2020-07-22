@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 // const { createUser } = require("../db");
 
-const Register = () => {
+const Register = ({ toggleModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -87,7 +87,9 @@ const Register = () => {
           value={location}
           onChange={handleLocationChange}
         />
-        <button onClick={}>Register, {currentUser}</button>
+        <button onClick={() => setModalIsOpen(false)}>
+          Register, {currentUser}
+        </button>
       </form>
     </div>
   );
