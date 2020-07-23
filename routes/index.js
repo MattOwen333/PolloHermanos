@@ -14,8 +14,6 @@ apiRouter.use(async (req, res, next) => {
     const token = auth.slice(prefix.length);
     try {
       const { id } = jwt.verify(token, JWT_SECRET);
-      console.log("ID:", id);
-      console.log("TOKEN:", token);
 
       if (id) {
         req.user = await getUserById(id);
@@ -35,7 +33,7 @@ apiRouter.use(async (req, res, next) => {
 apiRouter.use((req, res, next) => {
   if (req.user) {
     console.log("User is set:", req.user);
-    // console.log("CURRENT USER:", currentUser);
+    res.send();
   }
   next();
 });
