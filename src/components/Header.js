@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {
-  NavLink,
+  Link,
   BrowserRouter as Router,
   Route,
   Switch,
@@ -9,11 +9,13 @@ import {
 import ReactDOM from "react-dom";
 import { storeCurrentUser, clearCurrentUser } from "../Auth";
 import Modal from "react-modal";
-// import { Register, Login } from "./components";
+import { Register, Login } from "./index";
 
-const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
+Modal.setAppElement("#root");
+const Header = ({ currentUser, setCurrentUser }) => {
   const [selectedUser, setSelectedUser] = useState();
-  const [modalIsOpen, SetModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalRegisterIsOpen, setRegisterModalIsOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -34,33 +36,36 @@ const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
   // how should i change or remove some of these states
 
   return (
-    <header>
-      <h1>Retro Sports Memorabilia</h1>
-      <Router>
-        <NavLink to="/products" activeClassName="current">
+    <div id="header">
+      <header>
+        <h1>Retro Sports Memorabilia</h1>
+        {currentUser ? (
+          <>
+            <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => setModalIsOpen(true)}>Login</button>
+            <Modal isOpen={modalIsOpen}>
+              <Login toggleModal={setModalIsOpen}></Login>
+            </Modal>
+            <button onClick={() => setRegisterModalIsOpen(true)}>
+              Register
+            </button>
+            <Modal isOpen={modalRegisterIsOpen}>
+              <Register toggleModal={setRegisterModalIsOpen}></Register>
+            </Modal>
+          </>
+        )}
+
+        <Link to="/products" activeclassname="current">
           Products
-        </NavLink>
-        <NavLink to="/cart" activeClassName="current">
+        </Link>
+        <Link to="/cart" activeclassname="current">
           Your Cart
-        </NavLink>
-      </Router>
-      {currentUser ? (
-        <>
-          <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
-        </>
-      ) : (
-        <>
-          <button onClick={() => SetModalIsOpen(true)}>Login</button>
-          <Modal isOpen={modalIsOpen}>
-            <Login></Login>
-          </Modal>
-          <button onClick={() => SetModalIsOpen(true)}>Register</button>
-          <Modal isOpen={modalIsOpen}>
-            <Register toggleModal={SetModalIsOpen}></Register>
-          </Modal>
-        </>
-      )}
-    </header>
+        </Link>
+      </header>
+    </div>
   );
 };
 
