@@ -9,7 +9,6 @@ const {
   updateProduct,
   deleteProduct,
   addProductToCart,
-  // other db methods
 } = require("./index");
 
 async function buildTables() {
