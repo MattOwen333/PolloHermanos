@@ -34,21 +34,21 @@ const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
 
   return (
     <header>
-      <h1>Retro Sports Memorabilia</h1>
-      <Router>
+      <h1>Super </h1>
+      
         <NavLink to="/products" activeClassName="current">
           Products
         </NavLink>
         <NavLink to="/cart" activeClassName="current">
           Your Cart
         </NavLink>
-      </Router>
+      
       {currentUser ? (
-        <>
+        <div>
           <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
-        </>
+        </div>
       ) : (
-        <>
+        <div>
           <button onClick={() => SetModalIsOpen(true)}>Login</button>
           <Modal isOpen={modalIsOpen}>
             <Login></Login>
@@ -57,7 +57,7 @@ const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
           <Modal isOpen={modalIsOpen}>
             <Register toggleModal={SetModalIsOpen}></Register>
           </Modal>
-        </>
+        </div>
       )}
     </header>
   );

@@ -4,8 +4,7 @@ import axios from "axios";
 
 import { fetchProducts } from "./api";
 
-import { CartList, SearchBar, SearchResults } from "./components";
-
+import { CartList, SearchBar, SearchResults, Header, Login, Register } from "./components";
 
 import "./index.css";
 
@@ -45,6 +44,9 @@ function App() {
   };
   return (
     <div id="app">
+      <Header Login={Login}
+              Register={Register}
+              />
       <SearchBar setResults={setResults} />
       <SearchResults
         results={results}
