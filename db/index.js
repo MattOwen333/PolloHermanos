@@ -22,6 +22,39 @@ async function createUser({ username, password, name, email, location }) {
   }
 }
 
+async function createAdmin(username) {
+  try {
+    const { rows } = await client.query(
+      `
+      UPDATE users
+        SET admin = true
+        WHERE username='${username}'
+        RETURNING *;
+    `
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAdmin() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE admin = true
+    `
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
@@ -166,9 +199,9 @@ async function addProductToCart({ userId, productId, quantity }) {
   }
 }
 
-async function getUserCart(username) {
+async function getUserCart(userId) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getUserById(userId);
 
     const { rows: cart } = await client.query(`
           SELECT *
@@ -216,12 +249,14 @@ module.exports = {
   client,
   createUser,
   createProduct,
+  createAdmin,
   getAllUsers,
   getAllProducts,
   getProductById,
   getUserByUsername,
   getUserById,
   getCarts,
+  getAdmin,
   updateProduct,
   deleteProduct,
   deleteUser,
