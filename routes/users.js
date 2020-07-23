@@ -91,7 +91,7 @@ usersRouter.post("/register", async (req, res, next) => {
 
     const token = jwt.sign(
       {
-        id: user.id,
+        id: user[0].id,
         username,
       },
       process.env.JWT_SECRET,
@@ -108,16 +108,16 @@ usersRouter.post("/register", async (req, res, next) => {
   }
 });
 
-// usersRouter.delete("/:userId", async (req, res, next) => {
-//   try {
-//     const user = await getUserById(req.params.userId);
+usersRouter.delete("/:userId", async (req, res, next) => {
+  try {
+    const user = await getUserById(req.params.userId);
 
-//     const deleted = await deleteUser(user.id);
+    const deleted = await deleteUser(user.id);
 
-//     res.send({ user: deleted });
-//     next();
-//   } catch ({ name, message }) {
-//     next({ name, message });
-//   }
-// });
+    res.send({ user: deleted });
+    next();
+  } catch ({ name, message }) {
+    next({ name, message });
+  }
+});
 module.exports = usersRouter;

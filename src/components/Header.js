@@ -10,7 +10,7 @@ import Modal from "react-modal";
 
 import { Register, Login } from "./components";
 
-const Header = ({ currentUser, setCurrentUser }) => {
+const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
   const [selectedUser, setSelectedUser] = useState();
   const [modalIsOpen, SetModalIsOpen] = useState(false);
 
@@ -35,25 +35,27 @@ const Header = ({ currentUser, setCurrentUser }) => {
   return (
     <header>
       <h1>Retro Sports Memorabilia</h1>
-      <NavLink to="/products" activeClassName="current">
-        Products
-      </NavLink>
-      <NavLink to="/cart" activeClassName="current">
-        Your Cart
-      </NavLink>
+      <Router>
+        <NavLink to="/products" activeClassName="current">
+          Products
+        </NavLink>
+        <NavLink to="/cart" activeClassName="current">
+          Your Cart
+        </NavLink>
+      </Router>
       {currentUser ? (
         <>
           <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
         </>
       ) : (
         <>
-          <button onClick={() => setModalIsOpen(true)}>Login</button>
+          <button onClick={() => SetModalIsOpen(true)}>Login</button>
           <Modal isOpen={modalIsOpen}>
             <Login></Login>
           </Modal>
-          <button onClick={() => setModalIsOpen(true)}>Register</button>
+          <button onClick={() => SetModalIsOpen(true)}>Register</button>
           <Modal isOpen={modalIsOpen}>
-            <Register></Register>
+            <Register toggleModal={SetModalIsOpen}></Register>
           </Modal>
         </>
       )}

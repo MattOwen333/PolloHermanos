@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import ReactDOM from "react-dom";
-
 import axios from "axios";
 
 import { fetchProducts } from "./api";
@@ -17,7 +15,6 @@ function App() {
   const [cart, setCart] = useState([]);
 
   const [userToken, setUserToken] = useState([]);
-
   const addProductToCart = ({ id, name, price }) => {
     const nextCart = [...cart];
     const index = nextCart.findIndex((product) => product.id === id);
