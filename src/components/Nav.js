@@ -1,8 +1,13 @@
 import React, { useState } from "react";
+
 import { NavLink } from "react-router-dom";
+
 import ReactDOM from "react-dom";
+
 import { storeCurrentUser, clearCurrentUser } from "../auth";
+
 import Modal from "react-modal";
+
 import { Register, Login } from "./components";
 
 const Header = ({ currentUser, setCurrentUser }) => {
