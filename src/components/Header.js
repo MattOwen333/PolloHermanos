@@ -60,12 +60,7 @@ const Header = ({ currentUser, setCurrentUser }) => {
           </>
         )}
 
-        <Link to="/products" activeclassname="current">
-          Products
-        </Link>
-        <Link to="/cart" activeclassname="current">
-          Your Cart
-        </Link>
+
       </header>
     </div>
   );

@@ -6,6 +6,7 @@
       
   height: calc(100vh - 16px);
   background: rgb(19, 209, 200);
+  overflow-y: auto;
 }
 
 #search {
@@ -19,7 +20,7 @@
 #results {
   grid-row: 3;
   /* grid-column: 1; */
-  /* overflow-y: scroll; */
+  overflow-y: scroll;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   color: rgb(19, 209, 200);
   padding: 5px 30px;

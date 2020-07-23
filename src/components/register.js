@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
+
 // const { createUser } = require("../db");
 
 const Register = ({ toggleModal }) => {
@@ -32,11 +33,11 @@ const Register = ({ toggleModal }) => {
   // async function handleSubmit(event) {
   //   event.preventDefault();
 
-  //   // const register = await createUser({
-  //   //   username,
-  //   //   password,
-  //   //   name,
-  //   //   location,
+  //   const register = await createUser({
+  //     username,
+  //     password,
+  //     name,
+  //     location,
   //   });
   // }
 
@@ -94,11 +95,11 @@ const Register = ({ toggleModal }) => {
 };
 
 //on submit need to close modal
-{
-  /* <button onClick={() => setModalIsOpen(true)}>Register</button>
-          <Modal isOpen={modalIsOpen}>
-            <Register></Register>
-          </Modal> */
-}
+// {
+//    <button onClick={() => setModalIsOpen(true)}>Register</button>
+//           <Modal isOpen={modalIsOpen}>
+//             <Register></Register>
+//           </Modal> 
+// }
 
 export default Register;
