@@ -8,7 +8,6 @@ const Register = ({ toggleModal }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
-  const [modalIsOpen, SetModalIsOpen] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -88,7 +87,7 @@ const Register = ({ toggleModal }) => {
           value={location}
           onChange={handleLocationChange}
         />
-        <button onClick={() => SetModalIsOpen(false)}>Register</button>
+        <button onClick={() => toggleModal(false)}>Register</button>
       </form>
     </div>
   );

@@ -1,18 +1,23 @@
 import React, { useState } from "react";
-
-import { NavLink } from "react-router-dom";
-
+import {
+  Link,
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import ReactDOM from "react-dom";
-
-import { storeCurrentUser, clearCurrentUser } from "../auth";
-
+import { storeCurrentUser, clearCurrentUser } from "../Auth";
 import Modal from "react-modal";
+import { Register, Login } from "./index";
+import "./Header.css"
 
-import { Register, Login } from "./components";
 
-const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
+Modal.setAppElement("#root");
+const Header = ({ currentUser, setCurrentUser }) => {
   const [selectedUser, setSelectedUser] = useState();
-  const [modalIsOpen, SetModalIsOpen] = useState(false);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [modalRegisterIsOpen, setRegisterModalIsOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -33,33 +38,36 @@ const Header = ({ currentUser, setCurrentUser, Login, Register }) => {
   // how should i change or remove some of these states
 
   return (
-    <header>
-      <h1>Super </h1>
-      
-        <NavLink to="/products" activeClassName="current">
+    <div id="header">
+      <header>
+        <img src="https://i.imgur.com/XCIM4q0.jpg"></img>
+        {currentUser ? (
+          <>
+            <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
+          </>
+        ) : (
+          <>
+            <button onClick={() => setModalIsOpen(true)}>Login</button>
+            <Modal isOpen={modalIsOpen}>
+              <Login toggleModal={setModalIsOpen}></Login>
+            </Modal>
+            <button onClick={() => setRegisterModalIsOpen(true)}>
+              Register
+            </button>
+            <Modal isOpen={modalRegisterIsOpen}>
+              <Register toggleModal={setRegisterModalIsOpen}></Register>
+            </Modal>
+          </>
+        )}
+
+        <Link to="/products" activeclassname="current">
           Products
-        </NavLink>
-        <NavLink to="/cart" activeClassName="current">
+        </Link>
+        <Link to="/cart" activeclassname="current">
           Your Cart
-        </NavLink>
-      
-      {currentUser ? (
-        <div>
-          <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
-        </div>
-      ) : (
-        <div>
-          <button onClick={() => SetModalIsOpen(true)}>Login</button>
-          <Modal isOpen={modalIsOpen}>
-            <Login></Login>
-          </Modal>
-          <button onClick={() => SetModalIsOpen(true)}>Register</button>
-          <Modal isOpen={modalIsOpen}>
-            <Register toggleModal={SetModalIsOpen}></Register>
-          </Modal>
-        </div>
-      )}
-    </header>
+        </Link>
+      </header>
+    </div>
   );
 };
 

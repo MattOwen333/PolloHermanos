@@ -2,10 +2,9 @@ import React, { useState } from "react";
 import Modal from "react-modal";
 import { storeCurrentUser, setCurrentUser } from "../Auth";
 
-const Login = ({ toggleModal, setCurrentUser }) => {
+const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [modalIsOpen, SetModalIsOpen] = useState(false);
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
@@ -50,7 +49,7 @@ const Login = ({ toggleModal, setCurrentUser }) => {
           onChange={handlePasswordChange}
         />
 
-        <button onClick={() => SetModalIsOpen(false)}>Login</button>
+        <button onClick={() => toggleModal(false)}>Login</button>
       </form>
     </div>
   );
