@@ -14,14 +14,14 @@
   /* grid-column: 1; */
   background:rgb(19, 209, 200);
   color: hotpink;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 #results {
   grid-row: 3;
   /* grid-column: 1; */
   overflow-y: scroll;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   color: rgb(19, 209, 200);
   padding: 5px 30px;
   background:rgb(19,209,200);
@@ -32,7 +32,7 @@
   grid-column: 3;
   background: rgb(19, 209, 200);
   color: hotpink;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   align-self: stretch;
 }
 

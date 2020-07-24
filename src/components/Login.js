@@ -27,6 +27,10 @@ const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
     try {
       const response = await fetch(url);
       const data = await response.json();
+      toggleModal(false);
+      //move anything calling api stuff in api
+      //then create post request and attach data to it
+      //deckbuilder as reference
       return data;
     } catch (error) {
       console.error(error);
@@ -49,7 +53,7 @@ const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button onClick={() => toggleModal(false)}>Login</button>
+        <button>Login</button>
       </form>
     </div>
   );
