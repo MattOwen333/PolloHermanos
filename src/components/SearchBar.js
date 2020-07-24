@@ -17,15 +17,11 @@ const SearchBar = ({ setResults }) => {
 
   return (
     <div id="search">
-      <h3>Search for products to get started!</h3>
+      <h3>Welcome!</h3>
+      <h3>Click the button below to get started!</h3>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder=""
-          value={name}
-          onChange={handleNameChange}
-        />
-        <button type="submit">Search</button>
+
+        <button type="submit">Show me the products!</button>
       </form>
     </div>
   );

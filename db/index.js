@@ -90,12 +90,14 @@ async function getUserById(userId) {
   try {
     const {
       rows: [user],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT *
       FROM users
-      WHERE id=${userId}
-    `);
-
+      WHERE id=$1
+    `,
+      [userId]
+    );
     if (!user) {
       return null;
     }
@@ -107,11 +109,10 @@ async function getUserById(userId) {
 
 async function createProduct({ title, description, photo, price }) {
   try {
-    const { rows } = await client.query(
+    const rows = await client.query(
       `
       INSERT INTO products(title, description, photo, price)
-      VALUES($1, $2, $3, $4)
-      RETURNING *;
+      VALUES($1, $2, $3, $4);
     `,
       [title, description, photo, price]
     );
@@ -125,7 +126,8 @@ async function createProduct({ title, description, photo, price }) {
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
-      SELECT * FROM products;
+      SELECT title, id, photo, price, description 
+      FROM products;
     `);
 
     return rows;
