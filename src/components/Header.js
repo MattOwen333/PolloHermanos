@@ -10,7 +10,10 @@ import ReactDOM from "react-dom";
 import { storeCurrentUser, clearCurrentUser } from "../Auth";
 import Modal from "react-modal";
 import { Register, Login } from "./index";
+
+
 import "./Header.css"
+
 
 
 Modal.setAppElement("#root");

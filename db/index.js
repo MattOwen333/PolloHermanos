@@ -22,6 +22,39 @@ async function createUser({ username, password, name, email, location }) {
   }
 }
 
+async function createAdmin(username) {
+  try {
+    const { rows } = await client.query(
+      `
+      UPDATE users
+        SET admin = true
+        WHERE username='${username}'
+        RETURNING *;
+    `
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
+async function getAdmin() {
+  try {
+    const { rows } = await client.query(
+      `
+      SELECT *
+      FROM users
+      WHERE admin = true
+    `
+    );
+
+    return rows;
+  } catch (error) {
+    throw error;
+  }
+}
+
 async function getAllUsers() {
   try {
     const { rows } = await client.query(`
@@ -57,12 +90,14 @@ async function getUserById(userId) {
   try {
     const {
       rows: [user],
-    } = await client.query(`
+    } = await client.query(
+      `
       SELECT *
       FROM users
-      WHERE id=${userId}
-    `);
-
+      WHERE id=$1
+    `,
+      [userId]
+    );
     if (!user) {
       return null;
     }
@@ -74,11 +109,10 @@ async function getUserById(userId) {
 
 async function createProduct({ title, description, photo, price }) {
   try {
-    const { rows } = await client.query(
+    const rows = await client.query(
       `
       INSERT INTO products(title, description, photo, price)
-      VALUES($1, $2, $3, $4)
-      RETURNING *;
+      VALUES($1, $2, $3, $4);
     `,
       [title, description, photo, price]
     );
@@ -92,7 +126,8 @@ async function createProduct({ title, description, photo, price }) {
 async function getAllProducts() {
   try {
     const { rows } = await client.query(`
-      SELECT * FROM products;
+      SELECT title, id, photo, price, description 
+      FROM products;
     `);
 
     return rows;
@@ -166,9 +201,9 @@ async function addProductToCart({ userId, productId, quantity }) {
   }
 }
 
-async function getUserCart(username) {
+async function getUserCart(userId) {
   try {
-    const user = await getUserByUsername(username);
+    const user = await getUserById(userId);
 
     const { rows: cart } = await client.query(`
           SELECT *
@@ -216,12 +251,14 @@ module.exports = {
   client,
   createUser,
   createProduct,
+  createAdmin,
   getAllUsers,
   getAllProducts,
   getProductById,
   getUserByUsername,
   getUserById,
   getCarts,
+  getAdmin,
   updateProduct,
   deleteProduct,
   deleteUser,

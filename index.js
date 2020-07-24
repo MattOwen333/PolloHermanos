@@ -1,5 +1,7 @@
 // This is the Web Server
+
 require("dotenv").config();
+
 const express = require("express");
 const server = express();
 
@@ -32,7 +34,10 @@ server.listen(PORT, async () => {
   console.log(`Server is running on ${PORT}!`);
 
   try {
+
+
     await client.connect();
+
     console.log("Database is open for business!");
   } catch (error) {
     console.error("Database is closed for repairs!\n", error);

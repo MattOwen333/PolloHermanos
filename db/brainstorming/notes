@@ -56,3 +56,35 @@ API
   getProductId
 
   getAllOrders(userid)
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retro Sports Memorobilia</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      border: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    header {
+      background: rgb(19, 209, 200);
+      text-align: center;
+      height: 100px;
+      color: hotpink;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      border-bottom: 5px solid hotpink;
+      font-size: 50px;
+    }
+  </style>
+</head>
+<header>Super Sports Bros.</header>
+<body>
+  <div id="root"></div>
+</body>
+</html>
