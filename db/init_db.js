@@ -2,10 +2,12 @@ const {
   client,
   createUser,
   createProduct,
+  createAdmin,
   getAllUsers,
   getAllProducts,
   getCarts,
   getUserCart,
+  getAdmin,
   updateProduct,
   deleteProduct,
   addProductToCart,
@@ -78,10 +80,30 @@ async function populateInitialData() {
       email: "tom@gmail.com",
       location: "Jacksonville",
     });
+    await createUser({
+      username: "adminuser",
+      password: "adminpassword",
+      name: "admin",
+      email: "admin@supersports.com",
+      location: "SSB",
+    });
+    await createUser({
+      username: "adminuser2",
+      password: "adminpassword2",
+      name: "admin2",
+      email: "admin2@supersports.com",
+      location: "SSB",
+    });
 
-    // async function currentUser() {}
+    await createAdmin("adminuser");
+
+    await createAdmin("adminuser2");
+
     const users = await getAllUsers();
     console.log("---USERS:", users);
+
+    const admins = await getAdmin();
+    console.log("ADMIN USERS", admins);
 
     /*--------------------------PRODUCTS----------------------------*/
     await createProduct({
@@ -99,6 +121,24 @@ async function populateInitialData() {
         "https://static.mitchellandness.com/media/catalog/product/cache/fce1fd5366e9310e63e704e8f032380b/3/5/353JA_MHE_FGYALZ_314_2.jpg",
       price: "120",
     });
+    await createProduct({
+      title: "1989-90 FLEER Charles Oakley Card",
+      description:
+        "Original Knicks Charles Oakley basketball card from the 1989-1990 season",
+
+      photo:
+        "https://www.picclickimg.com/d/l400/pict/353099186291_/1989-90-Fleer-103-Charles-Oakley-NM-MT.jpg",
+      price: "19.99",
+    });
+
+    createProduct({
+      title: "Swingman Jersey Miami Heat 2005-06 Shaquille O'Neal",
+      description: "Championship year Miami Heat Diesel jersey.",
+      photo:
+        "https://static.mitchellandness.com/media/catalog/product/cache/e51ff606314c2cfd0e05db831c49083b/s/m/smjycp19243-mheblck05son_1.jpg",
+      price: "130",
+    });
+
     const products = await getAllProducts();
     console.log("---PRODUCTS:", products);
 
@@ -115,14 +155,36 @@ async function populateInitialData() {
     });
 
     await addProductToCart({
+      userId: 1,
+      productId: 2,
+      quantity: 1,
+    });
+    /*-------------*/
+    await addProductToCart({
+      userId: 2,
+      productId: 1,
+      quantity: 1,
+    });
+    /*-------------*/
+    await addProductToCart({
       userId: 3,
       productId: 1,
       quantity: 1,
     });
+    await addProductToCart({
+      userId: 3,
+      productId: 2,
+      quantity: 1,
+    });
+    await addProductToCart({
+      userId: 3,
+      productId: 3,
+      quantity: 1,
+    });
 
-    let maxCart = await getUserCart("maximilian");
+    let maxCart = await getUserCart(1);
     console.log("---MAX CART: ", maxCart);
-    let tomCart = await getUserCart("tomthemailman");
+    let tomCart = await getUserCart(3);
     console.log("---TOM CART: ", tomCart);
 
     const carts = await getCarts();

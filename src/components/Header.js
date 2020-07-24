@@ -10,7 +10,11 @@ import ReactDOM from "react-dom";
 import { storeCurrentUser, clearCurrentUser } from "../Auth";
 import Modal from "react-modal";
 import { Register, Login } from "./index";
-import "./Header.css";
+
+
+import "./Header.css"
+
+
 
 Modal.setAppElement("#root");
 const Header = ({ currentUser, setCurrentUser }) => {
@@ -39,7 +43,7 @@ const Header = ({ currentUser, setCurrentUser }) => {
   return (
     <div id="header">
       <header>
-        <h1>Retro Sports Memorabilia</h1>
+        <img src="https://i.imgur.com/XCIM4q0.jpg"></img>
         {currentUser ? (
           <>
             <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
@@ -59,12 +63,7 @@ const Header = ({ currentUser, setCurrentUser }) => {
           </>
         )}
 
-        <Link to="/products" activeclassname="current">
-          Products
-        </Link>
-        <Link to="/cart" activeclassname="current">
-          Your Cart
-        </Link>
+
       </header>
     </div>
   );

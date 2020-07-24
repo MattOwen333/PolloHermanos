@@ -17,7 +17,7 @@ const SearchBar = ({ setResults }) => {
 
   return (
     <div id="search">
-      <h3>Look up products here...</h3>
+      <h3>Search for products to get started!</h3>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

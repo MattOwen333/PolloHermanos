@@ -58,11 +58,10 @@
   }
   
   .Product .actions button {
-    padding: 1em;
     font-size: 1em;
     font-family: sans-serif;
     background: black;
-    color: white;
+    color: hotpink;
     border: 1px solid black;
     border-radius: 4px;
     cursor: pointer;
