@@ -1,59 +1,42 @@
+import { register } from "../Auth";
 import React, { useState } from "react";
+
 import Modal from "react-modal";
 
 // const { createUser } = require("../db");
-
 const Register = ({ toggleModal }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [location, setLocation] = useState("");
-
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
-
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
   };
-
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
-
   const handleEmailChnage = (event) => {
     setEmail(event.target.value);
   };
-
   const handleLocationChange = (event) => {
     setLocation(event.target.value);
   };
-
-  // async function handleSubmit(event) {
-  //   event.preventDefault();
-
-  //   const register = await createUser({
-  //     username,
-  //     password,
-  //     name,
-  //     location,
-  //   });
-  // }
-
   async function handleSubmit(event) {
-    const url = `/Register`;
     event.preventDefault();
-
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
+    const token = await register({
+      username,
+      password,
+      name,
+      email,
+      location,
+    });
+    localStorage.setItem("token", token);
+    toggleModal(false);
   }
-
   return (
     <div id="Register">
       <h3>Register</h3>
@@ -88,18 +71,9 @@ const Register = ({ toggleModal }) => {
           value={location}
           onChange={handleLocationChange}
         />
-        <button onClick={() => toggleModal(false)}>Register</button>
+        <button>Register</button>
       </form>
     </div>
   );
 };
-
-//on submit need to close modal
-// {
-//    <button onClick={() => setModalIsOpen(true)}>Register</button>
-//           <Modal isOpen={modalIsOpen}>
-//             <Register></Register>
-//           </Modal> 
-// }
-
 export default Register;

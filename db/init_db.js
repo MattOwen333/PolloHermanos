@@ -55,6 +55,7 @@ async function buildTables() {
     throw error;
   }
 }
+
 async function populateInitialData() {
   // create useful starting data
   try {
@@ -106,14 +107,14 @@ async function populateInitialData() {
     console.log("ADMIN USERS", admins);
 
     /*--------------------------PRODUCTS----------------------------*/
-    await createProduct({
+    const kobe = await createProduct({
       title: "1996 Kobe Bryant Rookie Card",
       description: "Authentic rookie Kobe Bryant collectible card.",
       photo:
         "https://images-na.ssl-images-amazon.com/images/I/61Ic8kW70ZL._AC_SY445_.jpg",
       price: "2000",
     });
-    await createProduct({
+    const alonzo = await createProduct({
       title: "Alonzo Mourning Classic Miami Heat Jersey",
       description:
         "Mens Hardwood Classics Alonzo Mourning Classic '96-'97 Miami Heat Jersey",
@@ -121,7 +122,7 @@ async function populateInitialData() {
         "https://static.mitchellandness.com/media/catalog/product/cache/fce1fd5366e9310e63e704e8f032380b/3/5/353JA_MHE_FGYALZ_314_2.jpg",
       price: "120",
     });
-    await createProduct({
+    const charles = await createProduct({
       title: "1989-90 FLEER Charles Oakley Card",
       description:
         "Original Knicks Charles Oakley basketball card from the 1989-1990 season",
@@ -131,7 +132,7 @@ async function populateInitialData() {
       price: "19.99",
     });
 
-    createProduct({
+    const swingman = await createProduct({
       title: "Swingman Jersey Miami Heat 2005-06 Shaquille O'Neal",
       description: "Championship year Miami Heat Diesel jersey.",
       photo:

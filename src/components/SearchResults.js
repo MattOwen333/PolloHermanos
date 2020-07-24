@@ -1,28 +1,33 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
+import { getDaProducts } from "../Auth/index";
+import Product from "./Product";
+import "./SearchResults.css";
 
-import Product from './Product';
-import './SearchResults.css';
-
-const SearchResults = ({ 
-  results,
-  addProductToCart,
-  removeProductFromCart
-}) => {
+function designCard(data) {
   return (
-    <div id="results">
-      <div className="ProductList">
-        {
-          results.map(result => (
-            <Product 
-              key={ result.id } 
-              addProductToCart ={ addProductToCart }
-              removeProductFromCart ={ removeProductFromCart }
-              {...result} />
-          ))
-        }
-      </div>
-    </div>
+    <Product
+      key={data.id}
+      id={data.id}
+      title={data.title}
+      photo={data.photo}
+      price={data.price}
+      description={data.description}
+    />
   );
 }
+
+const SearchResults = ({ addProductToCart, removeProductFromCart }) => {
+  const [myProducts, setMyProducts] = useState([]);
+  console.log(myProducts);
+  useEffect(() => {
+    getDaProducts().then(setMyProducts);
+  }, []);
+  console.log(myProducts);
+  return (
+    <div id="results">
+      <div className="ProductList">{myProducts.map(designCard)}</div>
+    </div>
+  );
+};
 
 export default SearchResults;
