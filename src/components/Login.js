@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
-import { storeCurrentUser, setCurrentUser } from "../Auth";
+
+import { storeCurrentUser, setCurrentUser, login } from "../Auth";
+
+
 import "./Login.css"
 
 const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
@@ -21,16 +24,32 @@ const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
   };
 
   async function handleSubmit(event) {
-    const url = `/Login`;
     event.preventDefault();
 
-    try {
-      const response = await fetch(url);
-      const data = await response.json();
-      return data;
-    } catch (error) {
-      console.error(error);
-    }
+    const token = await login({
+      username,
+      password,
+    });
+
+    localStorage.setItem("token", token);
+    toggleModal(false);
+
+    // fitness trac.kr
+    // first route index in routes file
+    // pull user out of the token and store it in request
+    // make a route that passes in a token and verifys is valid and
+    // returns the user
+
+    //   let currentUser = {
+    //     username: `${username}`,
+    //     token: `${token}`,
+    //   };
+    //   // localStorage.setItem("currentUser", currentUser);
+    //   // console.log("CURRENT USER:", currentUser);
+    //   console.log(user.id);
+    //   res.send({ message: `Hello, ${username}`, token });
+    // } else {
+    //   next({
   }
 
   return (
@@ -49,7 +68,10 @@ const Login = ({ toggleModal, setCurrentUser, setModalIsOpen }) => {
           value={password}
           onChange={handlePasswordChange}
         />
-        <button onClick={() => toggleModal(false)}>Login</button>
+
+
+        <button>Login</button>
+
       </form>
     </div>
   );
