@@ -18,6 +18,7 @@ function App() {
   const [results, setResults] = useState([]);
   const [cart, setCart] = useState([]);
   const [userToken, setUserToken] = useState([]);
+
   const addProductToCart = ({ id, name, price }) => {
     const nextCart = [...cart];
     const index = nextCart.findIndex((product) => product.id === id);

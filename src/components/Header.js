@@ -11,10 +11,7 @@ import { storeCurrentUser, clearCurrentUser } from "../Auth";
 import Modal from "react-modal";
 import { Register, Login } from "./index";
 
-
-import "./Header.css"
-
-
+import "./Header.css";
 
 Modal.setAppElement("#root");
 const Header = ({ currentUser, setCurrentUser }) => {
@@ -44,29 +41,17 @@ const Header = ({ currentUser, setCurrentUser }) => {
     <div id="header">
       <header>
         <img src="https://i.imgur.com/XCIM4q0.jpg"></img>
-        {currentUser ? (
-          <>
-            <button onClick={handleUserLogout}>LOG OUT, {currentUser}</button>
-          </>
-        ) : (
-          <>
-            <button onClick={() => setModalIsOpen(true)}>Login</button>
-            <Modal isOpen={modalIsOpen}>
-              <Login toggleModal={setModalIsOpen}></Login>
-            </Modal>
-            <button onClick={() => setRegisterModalIsOpen(true)}>
-              Register
-            </button>
-            <Modal isOpen={modalRegisterIsOpen}>
-              <Register toggleModal={setRegisterModalIsOpen}></Register>
-            </Modal>
-          </>
-        )}
-
-
+        <button onClick={() => setModalIsOpen(true)}>Login</button>
+        <Modal isOpen={modalIsOpen}>
+          <Login toggleModal={setModalIsOpen}></Login>
+        </Modal>
+        <button onClick={() => setRegisterModalIsOpen(true)}>Register</button>
+        <Modal isOpen={modalRegisterIsOpen}>
+          <Register toggleModal={setRegisterModalIsOpen}></Register>
+        </Modal>
+        <button onClick={handleUserLogout}>Logout {currentUser}</button>
       </header>
     </div>
   );
 };
-
 export default Header;

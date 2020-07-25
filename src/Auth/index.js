@@ -39,11 +39,11 @@ export async function register({ username, password, name, email, location }) {
   }
 }
 
-export async function getDaProducts() {
-  try {
-    const { data } = await axios.get("/api/products");
-    return data;
-  } catch (error) {
-    throw error;
-  }
-}
+// export async function getDaProducts() {
+//   try {
+//     const { data } = await axios.get("/api/products");
+//     return data;
+//   } catch (error) {
+//     throw error;
+//   }
+// }
